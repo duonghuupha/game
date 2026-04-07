@@ -3,7 +3,7 @@ let CURRENT_QUESTION = 0;
 // load câu hỏi
 function loadQuestion() {
 
-    $.get("get-question.php", function (res) {
+    $.get("api/get-question.php", function (res) {
 
         if (!res) return;
 
@@ -40,31 +40,41 @@ function renderQuestion(q) {
 
 
 // TRUE FALSE
-function renderTrueFalse(q) {
+function renderTrueFalse(q){
 
-    let html = `
+let html = `
+<div class="text-center">
+
 <img src="images/${q.image}" class="img-fluid mb-4">
 
 <div class="row">
 
 <div class="col-6">
-<button class="btn btn-success w-100 big-btn answer-btn"
+<button 
+class="btn btn-success w-100 big-btn answer-btn"
 data-answer="true">
+
 ĐÚNG
+
 </button>
 </div>
 
 <div class="col-6">
-<button class="btn btn-danger w-100 big-btn answer-btn"
+<button 
+class="btn btn-danger w-100 big-btn answer-btn"
 data-answer="false">
+
 SAI
+
 </button>
+</div>
+
 </div>
 
 </div>
 `;
 
-    $("#questionArea").html(html)
+$("#questionArea").html(html)
 
 }
 
@@ -106,7 +116,7 @@ function renderDrag(q){
     let data = JSON.parse(q.data_json)
 
     let html = `
-    <img src="images/${data.question}" class="img-fluid mb-4">
+    <img src="images/${data.image}" class="img-fluid mb-4">
     `
 
     // items
@@ -222,7 +232,7 @@ function submitAnswer(answer) {
     // khóa không cho bấm lại
     $(".answer-btn").prop("disabled", true)
 
-    $.post("submit.php", {
+    $.post("api/submit.php", {
 
         team_id: TEAM_ID,
         answer: JSON.stringify(answer)

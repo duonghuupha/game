@@ -62,11 +62,33 @@ function renderQuestion(q) {
 
 
 // TRUE FALSE
-function renderTrueFalse(q) {
+function renderTrueFalse(q){
 
     let html = `
-<img src="images/${q.image}" class="img-fluid">
-`
+    <div class="text-center">
+
+    <h2 class="mb-3">${q.question ?? ''}</h2>
+
+    <img src="images/${q.image}" class="img-fluid mb-4">
+
+    <div class="row">
+
+    <div class="col-6">
+    <div class="btn btn-success w-100 big-btn">
+    ĐÚNG
+    </div>
+    </div>
+
+    <div class="col-6">
+    <div class="btn btn-danger w-100 big-btn">
+    SAI
+    </div>
+    </div>
+
+    </div>
+
+    </div>
+    `;
 
     $("#questionArea").html(html)
 

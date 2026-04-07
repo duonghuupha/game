@@ -8,6 +8,9 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet">
     <link href="css/global.css" rel="stylesheet">
+    <script>
+    const TEAM_ID = new URLSearchParams(window.location.search).get("team") || 0;
+    </script>
 </head>
 
 <body>
