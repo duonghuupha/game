@@ -1,0 +1,51 @@
+body {
+    background: #f5f7ff;
+    font-family: "Comic Sans MS", cursive;
+}
+
+.question-box {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.big-btn {
+    font-size: 28px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.team-box {
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.team1 {
+    background: #ff6b6b;
+}
+
+.team2 {
+    background: #4ecdc4;
+}
+
+team3 {
+    background: #ffa502;
+}
+
+.team4 {
+    background: #6c5ce7;
+}
+
+.correct {
+    background: #2ecc71 !important;
+}
+
+.wrong {
+    background: #e74c3c !important;
+}
