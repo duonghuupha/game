@@ -16,20 +16,23 @@
             <!-- LEFT -->
             <div class="col-2 p-2">
                 <div class="team-box team1" id="team1">
-                    <img src="icon1.png" width="40">
-                    Đội 1
+                    <div>Đội 1</div>
+                    <div class="stars" id="star1"></div>
                 </div>
+
                 <div class="team-box team2" id="team2">
-                    <img src="icon2.png" width="40">
-                    Đội 2
+                    <div>Đội 2</div>
+                    <div class="stars" id="star2"></div>
                 </div>
+
                 <div class="team-box team3" id="team3">
-                    <img src="icon3.png" width="40">
-                    Đội 3
+                    <div>Đội 3</div>
+                    <div class="stars" id="star3"></div>
                 </div>
+
                 <div class="team-box team4" id="team4">
-                    <img src="icon4.png" width="40">
-                    Đội 4
+                    <div>Đội 4</div>
+                    <div class="stars" id="star4"></div>
                 </div>
                 <hr>
                 <button id="btnStart" class="btn btn-primary w-100 big-btn mb-2">
@@ -41,6 +44,9 @@
                 <button id="btnNext" class="btn btn-warning w-100 big-btn d-none">
                     TIẾP
                 </button>
+                <button id="btnReset" class="btn btn-danger w-100 mt-2">
+                    RESET
+                </button>
 
             </div>
             <!-- RIGHT -->
@@ -50,6 +56,22 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="rankModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h3>BẢNG XẾP HẠNG</h3>
+                </div>
+
+                <div class="modal-body" id="rankBody"></div>
+
+            </div>
+        </div>
+    </div>
+    <audio id="soundCorrect" src="sound/correct.mp3"></audio>
+    <audio id="soundWrong" src="sound/wrong.mp3"></audio>
+    <script src="js/server.js"></script>
 </body>
 
 </html>

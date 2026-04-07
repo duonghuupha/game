@@ -49,3 +49,70 @@ team3 {
 .wrong {
     background: #e74c3c !important;
 }
+
+/***************************************************/
+
+.option {
+    border-radius: 20px;
+    cursor: pointer;
+    border: 5px solid transparent;
+}
+
+.option:hover {
+    border: 5px solid #3498db;
+}
+
+.drag {
+    cursor: move;
+}
+
+.drop {
+    height: 150px;
+    border: 3px dashed #ccc;
+    border-radius: 20px;
+}
+
+.correct {
+    background: #2ecc71 !important;
+    color: white;
+}
+
+.wrong {
+    background: #e74c3c !important;
+    color: white;
+}
+
+.stars {
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+.star {
+    color: yellow;
+}
+
+.wrong {
+    animation: shake .3s;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(-5px)
+    }
+
+    50% {
+        transform: translateX(5px)
+    }
+
+    75% {
+        transform: translateX(-5px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
+}
