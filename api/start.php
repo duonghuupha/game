@@ -1,8 +1,3 @@
 <?php
-
 require "../db.php";
-
-$db->query("
-update game 
-set status='answering'
-");
+$db->query("UPDATE game SET status='answering'");
