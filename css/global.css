@@ -34,7 +34,7 @@ body {
     background: #4ecdc4;
 }
 
-team3 {
+.team3 {
     background: #ffa502;
 }
 
@@ -253,4 +253,14 @@ team3 {
     display: block;
     margin: auto;
     object-fit: contain;
+}
+
+.answer-btn.selected {
+    border: 4px solid #ffc107;
+    background: #fff3cd;
+    transform: scale(1.05);
+}
+
+.answer-btn:disabled {
+    opacity: 1;
 }

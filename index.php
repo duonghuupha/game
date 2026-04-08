@@ -38,6 +38,9 @@
                 <button id="btnStart" class="btn btn-primary w-100 big-btn mb-2">
                     MỞ
                 </button>
+                <button id="btnOpen" class="btn btn-primary w-100 big-btn mb-2">
+                    BẮT ĐẦU
+                </button>
                 <button id="btnCheck" class="btn btn-success w-100 big-btn mb-2 d-none">
                     KIỂM TRA
                 </button>
@@ -59,15 +62,16 @@
     <div class="modal fade" id="rankModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header text-center">
                     <h3>BẢNG XẾP HẠNG</h3>
                 </div>
                 <div class="modal-body" id="rankBody"></div>
             </div>
         </div>
     </div>
-    <audio id="soundCorrect" src="sound/correct.mp3"></audio>
-    <audio id="soundWrong" src="sound/wrong.mp3"></audio>
+    <!--<audio id="soundCorrect" src="sound/correct.mp3"></audio>
+    <audio id="soundWrong" src="sound/wrong.mp3"></audio>-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
     <script src="js/server.js"></script>
 </body>
 

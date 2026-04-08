@@ -1,18 +1,47 @@
 let CURRENT_QUESTION = 0;
+let GAME_STATUS = ""
+let LAST_SCORE = {}
+let CURRENT_STATUS = ""
+let LAST_STATUS = ""
+
+$(document).ready(function () {
+    initButtons()
+});
 
 // load trạng thái game
 function loadGame(){
     $.get("api/get-game.php",function(res){
-    // nếu kết thúc
-    if(res.status == "finished"){
-        showRank()
-    }
-    // nếu sang câu mới
-    if(res.current_question != CURRENT_QUESTION){
-        CURRENT_QUESTION = res.current_question
-        loadQuestion()
-        clearTeams()
-    }
+        GAME_STATUS = res.status
+        // nếu kết thúc
+        if(res.status == "finished"){
+            clearInterval(GAME_TIMER)
+            showRank()
+            return
+        }
+        // nếu sang câu mới
+        if((res.current_question != CURRENT_QUESTION && res.status == 'showing') || (res.status == 'showing' && LAST_STATUS != 'showing')){
+            CURRENT_QUESTION = res.current_question
+            loadQuestion()
+            clearTeams()
+        }
+        LAST_STATUS = res.status
+        // chỉ reset các nút KHÔNG liên quan check
+        $("#btnOpen").addClass("d-none")
+        $("#btnStart").addClass("d-none")
+        $("#btnNext").addClass("d-none")
+        // WAITING
+        if(res.status == "waiting"){
+            $("#btnStart").removeClass("d-none")
+        }
+        // SHOWING
+        if(res.status == "showing"){
+            $("#btnOpen").removeClass("d-none")
+        }
+        // CHECKED
+        if(res.status == "checked"){
+            $("#btnCheck").addClass("d-none")
+            $("#btnNext").removeClass("d-none")
+        }
     },"json")
 }
 
@@ -116,19 +145,19 @@ function loadAnswers() {
 
 // hiển thị đội
 function renderTeams(data){
-    $("#team1").removeClass("correct wrong").html("Đội 1")
-    $("#team2").removeClass("correct wrong").html("Đội 2")
-    $("#team3").removeClass("correct wrong").html("Đội 3")
-    $("#team4").removeClass("correct wrong").html("Đội 4")
+    $("#team1").removeClass("correct wrong").html("<div>Đội 1</div><div class='stars' id='star1'></div>")
+    $("#team2").removeClass("correct wrong").html("<div>Đội 2</div><div class='stars' id='star2'></div>")
+    $("#team3").removeClass("correct wrong").html("<div>Đội 3</div><div class='stars' id='star3'></div>")
+    $("#team4").removeClass("correct wrong").html("<div>Đội 4</div><div class='stars' id='star4'></div>")
     data.forEach(function(a){
         let box = $("#team"+a.team_id)
-        box.html("Đội "+a.team_id+" ✓")
+        box.html("<div>Đội "+a.team_id+" ✓</div><div class='stars' id='star"+a.team_id+"'></div>")
         if(a.is_correct == 1){
             box.addClass("correct")
-            playCorrect()
+            //playCorrect()
         }else if(a.is_correct == 0){
             box.addClass("wrong")
-            playWrong()
+            //playWrong()
         }
     })
 }
@@ -143,7 +172,12 @@ function playWrong(){
 
 // đủ 4 đội -> hiện check
 function checkEnough(data) {
-    if(data.length == 4){
+    /*if(data.length == 4){
+        $("#btnCheck").removeClass("d-none")
+    }*/
+    // neu chua du 4 doi
+    if(data.length != 4) return;
+    if(GAME_STATUS == "open"){
         $("#btnCheck").removeClass("d-none")
     }
 }
@@ -161,6 +195,9 @@ function clearTeams() {
 function loadScore(){
     $.get("api/get-score.php",function(res){
         res.forEach(function(t){
+            // nếu score không đổi thì bỏ qua
+            if(LAST_SCORE[t.id] == t.score) return
+            LAST_SCORE[t.id] = t.score
             let stars = ""
             for(let i=0;i<t.score;i++){
                 stars += "⭐"
@@ -190,18 +227,20 @@ function starEffect(id){
 
 function showRank(){
     $.get("api/get-rank.php",function(res){
-    let html = ""
-    res.forEach(function(t,i){
-        html += `
-        <div class="rank-item">
-            <h2>
-                ${i+1}. Đội ${t.id} ⭐ ${t.score}
-            </h2>
-        </div>
-        `
-    })
-    $("#rankBody").html(html)
-    $("#rankModal").modal("show")
+        let html = ""
+        res.forEach(function(t,i){
+            html += `
+            <div class="rank-item">
+                <h2>
+                    ${i+1}. Đội ${t.id} ⭐ ${t.score}
+                </h2>
+            </div>
+            `
+        })
+        $("#rankBody").html(html)
+        const modal = new bootstrap.Modal($('#rankModal')[0]);
+        //let modal = new bootstrap.Modal(document.getElementById('modalRank'))
+        modal.show()
     },"json")
 }
 
@@ -249,34 +288,66 @@ function showCorrectAnswer(q){
     }
 }
 
+function initButtons(){
+    $("#btnStart").removeClass("d-none") // nut mo
+    $("#btnOpen").addClass("d-none") // nut bat dau
+    $("#btnCheck").addClass("d-none")
+    $("#btnNext").addClass("d-none")
+    clearServerQuestion()
+}
+
+function clearServerQuestion(){
+    $("#questionArea").empty()
+}
+
 // nút mở câu hỏi
 $("#btnStart").click(function () {
-    $.post("api/start.php")
+    $.post("api/show.php", function(){
+        loadQuestion();
+        $("#btnStart").addClass("d-none")
+        $("#btnOpen").removeClass("d-none")
+    })
+})
+
+// nút bắt đầu câu hỏi
+$("#btnOpen").click(function () {
+    $.post("api/open.php")
+    $("#btnOpen").addClass("d-none")
 })
 
 // nút check
 $("#btnCheck").click(function () {
-    $.post("api/check.php", function () {
-        $("#btnNext").removeClass("d-none")
-        $("#btnCheck").addClass("d-none")
-        $.get("api/get-question.php",function(q){
+    $.post("api/check.php", function (res) {
+        if(res.success){
+            $("#btnCheck").addClass("d-none")
+            $.get("api/get-question.php",function(q){
+                showCorrectAnswer(q)
+            },"json")
+        }
+        /*$.get("api/get-question.php",function(q){
             showCorrectAnswer(q)
-        },"json")
-    })
+        },"json")*/
+    }, "json")
 })
 
 // nút next
 $("#btnNext").click(function () {
-    $.post("api/next.php")
+    $.post("api/next.php", function(){
+        $("#btnNext").addClass("d-none")
+        $("#btnCheck").addClass("d-none")
+        $("#btnOpen").removeClass("d-none")
+        loadQuestion()
+    })
 })
 
 $("#btnReset").click(function(){
     if(!confirm("Reset game?")) return;
-    $.post("api/reset-game.php")
+    $.post("api/reset-game.php");
+    location.reload()
 })
 
 // realtime
-setInterval(function () {
+let GAME_TIMER = setInterval(function () {
     loadGame()
     loadAnswers()
     loadScore()

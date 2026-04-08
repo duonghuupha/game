@@ -12,4 +12,4 @@ if($next > $total){
 // xóa câu trả lời cũ
 $db->query("delete from answers");
 // sang câu mới
-$db->query("update game set current_question='$next', status='answering'");
+$db->query("update game set current_question='$next', status='showing'");

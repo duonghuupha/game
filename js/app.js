@@ -1,4 +1,70 @@
 let CURRENT_QUESTION = 0;
+let CURRENT_STATUS = "";
+let GAME_STATE = {
+status:"",
+question:0
+}
+
+function loadGame(){
+
+$.get("api/get-game.php",function(res){
+
+// ===== OPEN =====
+if(res.status == "open"){
+
+if(
+GAME_STATE.status != "open" ||
+GAME_STATE.question != res.current_question
+){
+
+GAME_STATE.status = "open"
+GAME_STATE.question = res.current_question
+
+loadQuestion()
+
+}
+
+return
+}
+
+// ===== SHOWING =====
+if(res.status == "showing"){
+
+if(GAME_STATE.status != "showing"){
+
+GAME_STATE.status = "showing"
+clearQuestion()
+
+}
+
+return
+}
+
+// ===== WAITING =====
+if(res.status == "waiting"){
+
+clearQuestion()
+GAME_STATE.status = "waiting"
+return
+}
+
+// ===== CHECKED =====
+if(res.status == "checked"){
+
+GAME_STATE.status = "checked"
+return
+
+}
+
+},"json")
+
+}
+
+setInterval(loadGame,500)
+
+function clearQuestion(){
+    $("#questionArea").empty()
+}
 
 // load câu hỏi
 function loadQuestion() {
@@ -59,7 +125,7 @@ function renderChoice(q) {
     `
     data.options.forEach(function (o) {
         html += `
-            <div class="col-4">
+            <div class="col-6">
                 <img src="images/${o.img}" class="img-fluid option answer-choice" data-answer="${o.id}">
             </div>
         `
@@ -156,12 +222,24 @@ function enableQuestion(){
 
 // TRUE FALSE click
 $(document).on("click", ".answer-btn", function () {
+    let val = $(this).data("value")
+    // highlight
+    $(".answer-btn").removeClass("selected")
+    $(this).addClass("selected")
+    // disable
+    $(".answer-btn").prop("disabled",true)
+
     let answer = $(this).data("answer")
     submitAnswer(answer)
 })
 
 // CHOICE click
 $(document).on("click", ".answer-choice", function () {
+    let val = $(this).data("id")
+    $(".answer-choice").removeClass("selected")
+    $(this).addClass("selected")
+    $(".answer-choice").css("pointer-events","none")
+
     let answer = $(this).data("answer")
     submitAnswer(answer)
 })
@@ -196,5 +274,5 @@ loadQuestion();
 
 // realtime polling
 setInterval(function () {
-    loadQuestion()
-}, 1000)
+    loadGame()
+}, 500)

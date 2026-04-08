@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 08, 2026 at 12:17 PM
--- Server version: 5.7.39-log
+-- Generation Time: Apr 09, 2026 at 01:56 AM
+-- Server version: 5.7.39
 -- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -36,6 +36,14 @@ CREATE TABLE `answers` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `answers`
+--
+
+INSERT INTO `answers` (`id`, `question_id`, `team_id`, `answer`, `is_correct`, `created_at`) VALUES
+(119, 1, 4, 'true', 0, '2026-04-08 22:41:50'),
+(120, 1, 3, 'true', 0, '2026-04-08 22:55:22');
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +55,13 @@ CREATE TABLE `game` (
   `current_question` int(11) DEFAULT '1',
   `status` varchar(20) COLLATE utf8_unicode_ci DEFAULT 'waiting'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `game`
+--
+
+INSERT INTO `game` (`id`, `current_question`, `status`) VALUES
+(1, 1, 'open');
 
 -- --------------------------------------------------------
 
@@ -69,11 +84,11 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `type`, `question`, `image`, `data_json`, `answer_json`, `sort_order`) VALUES
-(1, 'truefalse', 'Dãy sắp xếp theo quy tắc 1-1 đúng hay sai?', 'c1.png', NULL, '{\"correct\":\"true\"}', 5),
-(2, 'choice', 'Đâu là dãy theo quy tắc 1-1', 'c2.png', '{\r\n\"options\":[\r\n{\"id\":\"A\",\"img\":\"c2_a.png\"},\r\n{\"id\":\"B\",\"img\":\"c2_b.png\"}\r\n]\r\n}', '{\"correct\":\"A\"}', 3),
-(3, 'drag', 'Hoàn thiện quy tắc 1-1', 'c3_q.png', '{\r\n\"items\":[\r\n{\"id\":1,\"img\":\"c3_a.png\"},\r\n{\"id\":2,\"img\":\"c3_b.png\"}\r\n]\r\n}', '{\"order\":[2]}', 4),
+(1, 'truefalse', 'Dãy sắp xếp theo quy tắc 1-1 đúng hay sai?', 'c1.png', NULL, '{\"correct\":\"true\"}', 1),
+(2, 'choice', 'Đâu là dãy theo quy tắc 1-1', 'c2.png', '{\r\n\"options\":[\r\n{\"id\":\"A\",\"img\":\"c2_a.png\"},\r\n{\"id\":\"B\",\"img\":\"c2_b.png\"}\r\n]\r\n}', '{\"correct\":\"B\"}', 5),
+(3, 'drag', 'Hoàn thiện quy tắc 1-1', 'c3_q.png', '\r\n{\r\n \"pattern\":[\r\n   {\"img\":\"c3_flower.png\"},\r\n   {\"img\":\"c3_leaf.png\"},\r\n   {\"img\":\"c3_flower.png\"},\r\n   {\"drop\":true},\r\n   {\"img\":\"c3_flower.png\"},\r\n   {\"img\":\"c3_leaf.png\"}\r\n ],\r\n \"items\":[\r\n   {\"id\":1,\"img\":\"c3_flower.png\"},\r\n   {\"id\":2,\"img\":\"c3_leaf.png\"}\r\n ]\r\n}', '{\"order\":[2]}', 3),
 (4, 'drag', 'Hoàn thiện quy tắc 1-1', 'c4_q.png', '{\n \"pattern\":[\n   {\"img\":\"donut.png\"},\n   {\"img\":\"candy.png\"},\n   {\"img\":\"donut.png\"},\n   {\"drop\":true},\n   {\"img\":\"donut.png\"},\n   {\"drop\":true}\n ],\n \"items\":[\n   {\"id\":1,\"img\":\"donut.png\"},\n   {\"id\":2,\"img\":\"candy.png\"}\n ]\n}', '{\n \"order\":[2,2]\n}', 2),
-(5, 'drag', 'Hoàn thiện quy tắc 1-1', 'c5_q.png', '{\n \"pattern\":[\n   {\"img\":\"stick.png\"},\n   {\"img\":\"icecream.png\"},\n   {\"img\":\"stick.png\"},\n   {\"drop\":true},\n   {\"drop\":true},\n   {\"img\":\"icecream.png\"}\n ],\n \"items\":[\n   {\"id\":1,\"img\":\"stick.png\"},\n   {\"id\":2,\"img\":\"icecream.png\"}\n ]\n}', '{\"order\":[2,1]}', 1);
+(5, 'drag', 'Hoàn thiện quy tắc 1-1', 'c5_q.png', '{\n \"pattern\":[\n   {\"img\":\"stick.png\"},\n   {\"img\":\"icecream.png\"},\n   {\"img\":\"stick.png\"},\n   {\"drop\":true},\n   {\"drop\":true},\n   {\"img\":\"icecream.png\"}\n ],\n \"items\":[\n   {\"id\":1,\"img\":\"stick.png\"},\n   {\"id\":2,\"img\":\"icecream.png\"}\n ]\n}', '{\"order\":[2,1]}', 4);
 
 -- --------------------------------------------------------
 
@@ -134,7 +149,7 @@ ALTER TABLE `teams`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `questions`
