@@ -69,7 +69,6 @@ team3 {
 .drop {
     height: 150px;
     border: 3px dashed #ccc;
-    border-radius: 20px;
 }
 
 .correct {
@@ -115,4 +114,143 @@ team3 {
     100% {
         transform: translateX(0)
     }
+}
+
+.pattern-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pattern-box {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.pattern-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.drop img {
+    max-width: 90%;
+    max-height: 90%;
+    pointer-events: none;
+}
+
+.drop {
+    border: 3px dashed #aaa;
+}
+
+.items-row {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.item {
+    width: 120px;
+}
+
+.pattern-box,
+.item-box {
+    width: 150px;
+    height: 150px;
+    border: 2px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: white;
+}
+
+.pattern-box img,
+.item-box img,
+.drop img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.pattern-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.items-row {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* item kéo */
+.item-box img {
+    width: 95%;
+    height: 95%;
+    object-fit: contain;
+}
+
+/* ảnh khi đã drop */
+.drop img {
+    width: 95%;
+    height: 95%;
+    object-fit: contain;
+}
+
+.pattern-box,
+.item-box,
+.drop {
+    width: 150px;
+    height: 150px;
+    border: 2px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: white;
+}
+
+.pattern-box img,
+.item-box img,
+.drop img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+}
+
+/* item kéo */
+.drag {
+    width: 95%;
+    height: 95%;
+}
+
+.pattern-box,
+.item-box {
+    border: 2px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.drop {
+    border: 3px dashed #999;
+}
+
+.pattern-box img,
+.item-box img,
+.drop img {
+    display: block;
+    margin: auto;
+    object-fit: contain;
 }

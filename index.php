@@ -59,13 +59,10 @@
     <div class="modal fade" id="rankModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <h3>BẢNG XẾP HẠNG</h3>
                 </div>
-
                 <div class="modal-body" id="rankBody"></div>
-
             </div>
         </div>
     </div>
