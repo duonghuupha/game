@@ -1,6 +1,6 @@
 body {
     background: #f5f7ff;
-    font-family: "Comic Sans MS", cursive;
+    font-family: "Roboto Condensed", sans-serif;
 }
 
 .question-box {
@@ -11,7 +11,8 @@ body {
 }
 
 .big-btn {
-    font-size: 28px;
+    font-size: 53px;
+    font-weight: bold;
     padding: 20px;
     border-radius: 20px;
 }
@@ -263,4 +264,17 @@ body {
 
 .answer-btn:disabled {
     opacity: 1;
+}
+
+.drag,
+.drop,
+.ui-draggable,
+.ui-droppable {
+    touch-action: none;
+    -ms-touch-action: none;
+}
+
+.drag,
+.drop {
+    touch-action: none;
 }

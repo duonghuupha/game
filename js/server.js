@@ -69,16 +69,25 @@ function renderQuestion(q) {
 function renderTrueFalse(q){
     let html = `
         <div class="text-center">
+            <div>
+            <h2>${q.question}</h2>
+                <audio controls>
+                    <source src="media/${q.audio}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
             <img src="images/${q.image}" class="img-fluid mb-4">
             <div class="row">
                 <div class="col-6">
                     <button class="btn btn-success w-100 big-btn" disabled>
                         ĐÚNG
+                        <img src="images/smile.png" height="100"/>
                     </button>
                 </div>
                 <div class="col-6">
                     <button class="btn btn-danger w-100 big-btn" disabled>
                         SAI
+                        <img src="images/cry.png" height="100"/>
                     </button>
                 </div>
             </div>
@@ -89,14 +98,23 @@ function renderTrueFalse(q){
 
 // CHOICE
 function renderChoice(q){
-    let data = JSON.parse(q.data_json)
-    let html = `
-        <img src="images/${q.image}" class="img-fluid mb-4">
+    let data = JSON.parse(q.data_json);
+    let html = 
+        `<div class="text-center">
+            <h2>${q.question}</h2>
+            <audio controls>
+                <source src="media/${q.audio}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
         <div class="row">
     `
     data.options.forEach(function(o){
         html += `
-            <div class="col-6">
+            <div class="col-2 d-flex align-items-center justify-content-end">
+                <h2 style="text-align:right;font-size:45px;font-weight:bold;">${o.id}</h2>
+            </div>
+            <div class="col-10">
                 <img src="images/${o.img}" class="img-fluid">
             </div>
         `
@@ -108,7 +126,16 @@ function renderChoice(q){
 // DRAG
 function renderDrag(q){
     let data = JSON.parse(q.data_json)
-    let html = `<div class="pattern-row">`
+    let html = `
+    <div class="text-center" style="margin-bottom:30px;">
+        <h2>${q.question}</h2>
+        <audio controls>
+            <source src="media/${q.audio}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div class="pattern-row">
+    `
     data.pattern.forEach(function(p){
         if(p.img){
             html += `
@@ -132,6 +159,17 @@ function renderDrag(q){
         `
     })
     html += `</div>`
+    // buttons
+    html += `
+    <div class="mt-3 text-center">
+        <button class="btn btn-warning" id="btnReset" style="width:150px; height:100px;font-size:35px;font-weight:bold" disabled>
+            1
+        </button>
+        <button class="btn btn-primary" id="btnSubmit" style="width:150px; height:100px;font-size:35px;font-weight:bold" disabled>
+            2
+        </button>
+    </div>
+    `
     $("#questionArea").html(html)
 }
 
@@ -145,13 +183,13 @@ function loadAnswers() {
 
 // hiển thị đội
 function renderTeams(data){
-    $("#team1").removeClass("correct wrong").html("<div>Đội 1</div><div class='stars' id='star1'></div>")
-    $("#team2").removeClass("correct wrong").html("<div>Đội 2</div><div class='stars' id='star2'></div>")
-    $("#team3").removeClass("correct wrong").html("<div>Đội 3</div><div class='stars' id='star3'></div>")
-    $("#team4").removeClass("correct wrong").html("<div>Đội 4</div><div class='stars' id='star4'></div>")
+    $("#team1").removeClass("correct wrong").html("<div>Nhóm 1</div><div class='stars' id='star1'></div>")
+    $("#team2").removeClass("correct wrong").html("<div>Nhóm 2</div><div class='stars' id='star2'></div>")
+    $("#team3").removeClass("correct wrong").html("<div>Nhóm 3</div><div class='stars' id='star3'></div>")
+    $("#team4").removeClass("correct wrong").html("<div>Nhóm 4</div><div class='stars' id='star4'></div>")
     data.forEach(function(a){
         let box = $("#team"+a.team_id)
-        box.html("<div>Đội "+a.team_id+" ✓</div><div class='stars' id='star"+a.team_id+"'></div>")
+        box.html("<div>Nhóm "+a.team_id+" ✓</div><div class='stars' id='star"+a.team_id+"'></div>")
         if(a.is_correct == 1){
             box.addClass("correct")
             //playCorrect()
@@ -163,11 +201,7 @@ function renderTeams(data){
 }
 
 function playCorrect(){
-    $("#soundCorrect")[0].play()
-}
-
-function playWrong(){
-    $("#soundWrong")[0].play()
+    $("#dung")[0].play()
 }
 
 // đủ 4 đội -> hiện check
@@ -232,7 +266,7 @@ function showRank(){
             html += `
             <div class="rank-item">
                 <h2>
-                    ${i+1}. Đội ${t.id} ⭐ ${t.score}
+                    ${i+1}. Nhóm ${t.id} - ⭐ ${t.score}
                 </h2>
             </div>
             `
@@ -248,9 +282,10 @@ function showCorrectAnswer(q){
     if(q.type == "truefalse"){
         let correct = JSON.parse(q.answer_json)
         let text = correct.correct == "true" ? "ĐÚNG" : "SAI"
+        let img = correct.correct == "true" ? "smile.png" : "cry.png"
         $("#questionArea").append(`
-            <div class="alert alert-success mt-3 text-center">
-                Đáp án: ${text}
+            <div class="alert alert-success mt-3 text-center"style="font-size:35px;font-weight:bold;">
+                Đáp án: ${text} - <img src="images/${img}" height="50"/>
             </div>
         `)
     }
@@ -306,7 +341,7 @@ $("#btnStart").click(function () {
         loadQuestion();
         $("#btnStart").addClass("d-none")
         $("#btnOpen").removeClass("d-none")
-    })
+    });
 })
 
 // nút bắt đầu câu hỏi
@@ -319,14 +354,12 @@ $("#btnOpen").click(function () {
 $("#btnCheck").click(function () {
     $.post("api/check.php", function (res) {
         if(res.success){
+            playCorrect()
             $("#btnCheck").addClass("d-none")
             $.get("api/get-question.php",function(q){
                 showCorrectAnswer(q)
             },"json")
         }
-        /*$.get("api/get-question.php",function(q){
-            showCorrectAnswer(q)
-        },"json")*/
     }, "json")
 })
 
@@ -342,8 +375,11 @@ $("#btnNext").click(function () {
 
 $("#btnReset").click(function(){
     if(!confirm("Reset game?")) return;
-    $.post("api/reset-game.php");
-    location.reload()
+    $.post("api/reset-game.php", function(res){
+        if(res.success == true){
+            location.reload()
+        }
+    });
 })
 
 // realtime

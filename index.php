@@ -4,6 +4,7 @@
 <head>
     <title>Title of the document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet">
@@ -16,22 +17,22 @@
             <!-- LEFT -->
             <div class="col-2 p-2">
                 <div class="team-box team1" id="team1">
-                    <div>Đội 1</div>
+                    <div>Nhóm 1</div>
                     <div class="stars" id="star1"></div>
                 </div>
 
                 <div class="team-box team2" id="team2">
-                    <div>Đội 2</div>
+                    <div>Nhóm 2</div>
                     <div class="stars" id="star2"></div>
                 </div>
 
                 <div class="team-box team3" id="team3">
-                    <div>Đội 3</div>
+                    <div>Nhóm 3</div>
                     <div class="stars" id="star3"></div>
                 </div>
 
                 <div class="team-box team4" id="team4">
-                    <div>Đội 4</div>
+                    <div>Nhóm 4</div>
                     <div class="stars" id="star4"></div>
                 </div>
                 <hr>
@@ -69,9 +70,9 @@
             </div>
         </div>
     </div>
-    <!--<audio id="soundCorrect" src="sound/correct.mp3"></audio>
-    <audio id="soundWrong" src="sound/wrong.mp3"></audio>-->
+    <audio id="dung" src="media/dung.mp3"></audio>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script src="js/server.js"></script>
 </body>
 

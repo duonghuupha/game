@@ -14,3 +14,7 @@ foreach($q as $row){
 }
 // reset game
 $db->query("update game set current_question=1,status='waiting'");
+
+echo json_encode([
+    "success"=> true
+]);
