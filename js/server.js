@@ -119,6 +119,16 @@ function renderChoice(q){
             </div>
         `
     })
+    html += `
+    <div class="mt-3 text-center">
+        <button class="btn btn-success" style="width:150px; height:100px;font-size:35px;font-weight:bold" disabled>
+            1
+        </button>
+        <button class="btn btn-danger" style="width:150px; height:100px;font-size:35px;font-weight:bold" disabled>
+            2
+        </button>
+    </div>
+    `
     html += `</div>`
     $("#questionArea").html(html)
 }
@@ -191,10 +201,10 @@ function renderTeams(data){
         let box = $("#team"+a.team_id)
         box.html("<div>Nhóm "+a.team_id+" ✓</div><div class='stars' id='star"+a.team_id+"'></div>")
         if(a.is_correct == 1){
-            box.addClass("correct")
+            box.addClass("")
             //playCorrect()
         }else if(a.is_correct == 0){
-            box.addClass("wrong")
+            box.addClass("")
             //playWrong()
         }
     })

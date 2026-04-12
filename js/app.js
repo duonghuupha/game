@@ -131,10 +131,20 @@ function renderChoice(q) {
                 <h2 style="font-size:45px;font-weight:bold">${o.id}</h2>
             </div>
             <div class="col-10 d-flex align-items-center justify-content-start">
-                <img src="images/${o.img}" class="img-fluid option answer-choice" data-answer="${o.id}">
+                <img src="images/${o.img}" class="img-fluid">
             </div>
         `
     })
+    html += `
+    <div class="mt-3">
+        <button class="btn btn-success answer-choice" style="width:150px; height:100px;font-size:35px;font-weight:bold" data-answer="1">
+            1
+        </button>
+        <button class="btn btn-danger answer-choice" style="width:150px; height:100px;font-size:35px;font-weight:bold" data-answer="2">
+            2
+        </button>
+    </div>
+    `
     html += `</div>`
     $("#questionArea").html(html)
 }
@@ -286,10 +296,11 @@ $(document).on("click", ".answer-btn", function () {
 // CHOICE click
 $(document).on("click", ".answer-choice", function () {
     let val = $(this).data("id")
+    // highlight
     $(".answer-choice").removeClass("selected")
     $(this).addClass("selected")
-    $(".selected").css({ "border": "5px solid #3498db", "padding": "3px" })
-    $(".answer-choice").css({ "pointer-events": "none" })
+    // disable
+    $(".answer-choice").prop("disabled", true)
 
     let answer = $(this).data("answer")
     submitAnswer(answer)
