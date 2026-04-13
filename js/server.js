@@ -277,7 +277,7 @@ function showRank(){
             html += `
             <div class="rank-item">
                 <h2>
-                    ${i+1}. Nhóm ${t.id} - ⭐ ${t.score}
+                    <img src='images/team${t.id}.png' width='50' class='me-2'> Nhóm ${t.id} - ${"⭐".repeat(t.score)} - ${t.score}
                 </h2>
             </div>
             `
