@@ -193,18 +193,18 @@ function loadAnswers() {
 
 // hiển thị đội
 function renderTeams(data){
-    $("#team1").removeClass("correct wrong").html("<div>Nhóm 1</div><div class='stars' id='star1'></div>")
-    $("#team2").removeClass("correct wrong").html("<div>Nhóm 2</div><div class='stars' id='star2'></div>")
-    $("#team3").removeClass("correct wrong").html("<div>Nhóm 3</div><div class='stars' id='star3'></div>")
-    $("#team4").removeClass("correct wrong").html("<div>Nhóm 4</div><div class='stars' id='star4'></div>")
+    $("#team1").removeClass("correct wrong").html("<div><img src='images/team1.png' width='50' class='me-2'>Nhóm 1</div><div class='stars' id='star1'></div>")
+    $("#team2").removeClass("correct wrong").html("<div><img src='images/team2.png' width='50' class='me-2'>Nhóm 2</div><div class='stars' id='star2'></div>")
+    $("#team3").removeClass("correct wrong").html("<div><img src='images/team3.png' width='50' class='me-2'>Nhóm 3</div><div class='stars' id='star3'></div>")
+    $("#team4").removeClass("correct wrong").html("<div><img src='images/team4.png' width='50' class='me-2'>Nhóm 4</div><div class='stars' id='star4'></div>")
     data.forEach(function(a){
         let box = $("#team"+a.team_id)
-        box.html("<div>Nhóm "+a.team_id+" ✓</div><div class='stars' id='star"+a.team_id+"'></div>")
+        box.html("<div><img src='images/team"+a.team_id+".png' width='50' class='me-2'>Nhóm "+a.team_id+" ✓</div><div class='stars' id='star"+a.team_id+"'></div>")
         if(a.is_correct == 1){
-            box.addClass("")
+            box.addClass("correct")
             //playCorrect()
         }else if(a.is_correct == 0){
-            box.addClass("")
+            box.addClass("wrong")
             //playWrong()
         }
     })
@@ -273,6 +273,7 @@ function showRank(){
     $.get("api/get-rank.php",function(res){
         let html = ""
         res.forEach(function(t,i){
+            
             html += `
             <div class="rank-item">
                 <h2>
@@ -283,7 +284,6 @@ function showRank(){
         })
         $("#rankBody").html(html)
         const modal = new bootstrap.Modal($('#rankModal')[0]);
-        //let modal = new bootstrap.Modal(document.getElementById('modalRank'))
         modal.show()
     },"json")
 }

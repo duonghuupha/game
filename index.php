@@ -17,22 +17,34 @@
             <!-- LEFT -->
             <div class="col-2 p-2">
                 <div class="team-box team1" id="team1">
-                    <div>Nhóm 1</div>
+                    <div>
+                        <img src="images/team1.png" alt="group" width="50" class="me-2">
+                        Nhóm 1
+                    </div>
                     <div class="stars" id="star1"></div>
                 </div>
 
                 <div class="team-box team2" id="team2">
-                    <div>Nhóm 2</div>
+                    <div>
+                        <img src="images/team2.png" alt="group" width="50" class="me-2">
+                        Nhóm 2
+                    </div>
                     <div class="stars" id="star2"></div>
                 </div>
 
                 <div class="team-box team3" id="team3">
-                    <div>Nhóm 3</div>
+                    <div>
+                        <img src="images/team3.png" alt="group" width="50" class="me-2">
+                        Nhóm 3
+                    </div>
                     <div class="stars" id="star3"></div>
                 </div>
 
                 <div class="team-box team4" id="team4">
-                    <div>Nhóm 4</div>
+                    <div>
+                        <img src="images/team4.png" alt="group" width="50" class="me-2">
+                        Nhóm 4
+                    </div>
                     <div class="stars" id="star4"></div>
                 </div>
                 <hr>
